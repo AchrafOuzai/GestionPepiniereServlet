@@ -16,7 +16,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
+        request.getRequestDispatcher("view/login.jsp").forward(request, response);
         
     }
 
@@ -40,10 +40,10 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("totalPlants", totalPlants);
             request.setAttribute("totalProducts", totalProducts);
 
-            request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("view/dashboard.jsp").forward(request, response);
         } else {
             request.setAttribute("errorMessage", "Invalid username or password");
-            request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
+            request.getRequestDispatcher("view/login.jsp").forward(request, response);
         }
     }
 }

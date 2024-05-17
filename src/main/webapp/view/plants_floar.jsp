@@ -11,21 +11,23 @@
  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="sidebar">
-        <a href="dashboard.jsp"><i class="fas fa-home"></i> Dashboard</a>
-        <a href="plants"><i class="fas fa-seedling"></i> Plantes</a>
-        <div class="dropdown">
-            <button class="dropbtn"><i class="fas fa-leaf"></i> Plant Types</button>
-            <div class="dropdown-content">
-                <a href="plants_arbre.jsp"><i class="fas fa-seedling"></i> Arbre</a>
-                <a href="plants_arbust.jsp"><i class="fas fa-seedling"></i> Arbust</a>
-                <a href="plants_floar.jsp"><i class="fas fa-seedling"></i> Floar</a>
-                <a href="plants_plantseculent.jsp"><i class="fas fa-seedling"></i> Plantseculent</a>
-            </div>
+      <div class="sidebar">
+    <a href="dashboard.jsp"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="plants"><i class="fas fa-seedling"></i> Plantes</a>
+   
+    <a href="produits"><i class="fas fa-box"></i> Produits</a>
+    <a href="plant"><i class="fas fa-warehouse"></i> Stock</a>
+     <div class="dropdown">
+        <button class="dropbtn"><i class="fas fa-leaf"></i> Plant Types</button>
+        <div class="dropdown-content">
+          
+           <a href="plants_arbre.jsp"><i class="fas fa-seedling"></i> Arbre</a>
+    <a href="plants_arbust.jsp"><i class="fas fa-seedling"></i> Arbust</a>
+    <a href="plants_floar.jsp"><i class="fas fa-seedling"></i> Floar</a>
+    <a href="plants_plantseculent.jsp"><i class="fas fa-seedling"></i> Plantseculent</a>
         </div>
-        <a href="produit"><i class="fas fa-box"></i> Produits</a>
-        <a href="stock.jsp"><i class="fas fa-warehouse"></i> Stock</a>
     </div>
+</div>
 
     <div class="container" style="margin-left: 280px;">
         <h2>floar Plants</h2>
@@ -43,14 +45,14 @@
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestionpepiniereservlet", "root", "");
                     stmt = con.createStatement();
-                    rs = stmt.executeQuery("SELECT * FROM plante WHERE type='floar'");
+                    rs = stmt.executeQuery("SELECT * FROM plante WHERE type_plante='Fleur'");
                     while(rs.next()){
             %>
           
                 <div class="card">
                   <img src="data:image/jpg;base64,<%= encodeImage(rs.getBlob("image_plante")) %>" class="card-img">
                     <h3 class="card-title"><%= rs.getString("nom_plante") %></h3>
-                    <p class="card-text"><strong>Description:</strong> <%= rs.getString("description") %></p>
+                    <p class="card-text"><strong>Description:</strong> <%= rs.getString("description_plante") %></p>
                     <p class="card-text"><strong>Prix Plante:</strong> <%= rs.getDouble("prix_plante") %></p>
                 
             </div>

@@ -47,17 +47,19 @@
             flex-wrap: wrap;
             justify-content: center;
         }
-        .card {
-            background-color: white;
-            border-radius: 5px;
-            border: 2px solid #27ae60; /* Green border */
-            box-shadow: 0 8px 16px rgba(39, 174, 96, 0.1); /* Green box shadow */
-            margin: 15px;
-            width: 300px;
-            overflow: hidden;
-            text-align: center;
-            padding: 20px;
-        }
+       .card {
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid #27ae60; /* Green border */
+    box-shadow: 0 8px 16px rgba(39, 174, 96, 0.1); /* Green box shadow */
+    margin: 15px;
+    width: 300px;
+    height: 200px; /* Fixed height */
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+}
+       
         .card h5 {
             margin: 15px 0 10px;
             font-size: 1.5em;
@@ -99,51 +101,51 @@
        <div class="sidebar">
     <a href="dashboard.jsp"><i class="fas fa-home"></i> Dashboard</a>
     <a href="plants"><i class="fas fa-seedling"></i> Plantes</a>
-    <div class="dropdown">
-        <button class="dropbtn"><i class="fas fa-leaf"></i> Plant Types</button>
+   
+    <a href="produits"><i class="fas fa-box"></i> Produits</a>
+    <a href="plant"><i class="fas fa-warehouse"></i> Stock</a>
+     <div class="dropdown">
+        <button class="dropbtn"><i class="fas fa-leaf"></i>  Types des Plant</button>
         <div class="dropdown-content">
           
-           <a href="plants_arbre.jsp"><i class="fas fa-seedling"></i> Arbre</a>
-    <a href="plants_arbust.jsp"><i class="fas fa-seedling"></i> Arbust</a>
-    <a href="plants_floar.jsp"><i class="fas fa-seedling"></i> Floar</a>
-    <a href="plants_plantseculent.jsp"><i class="fas fa-seedling"></i> Plantseculent</a>
+           <a href="view/plants_arbre.jsp"><i class="fas fa-seedling"></i> Arbre</a>
+    <a href="view/plants_arbust.jsp"><i class="fas fa-seedling"></i> Arbuste</a>
+    <a href="view/plants_floar.jsp"><i class="fas fa-seedling"></i> Fleur</a>
+    <a href="view/plants_plantseculent.jsp"><i class="fas fa-seedling"></i> Plantsucculente</a>
         </div>
     </div>
-    <a href="products.jsp"><i class="fas fa-box"></i> Produits</a>
-    <a href="stock.jsp"><i class="fas fa-warehouse"></i> Stock</a>
 </div>
     
     <div class="container">
-        <h2>Plant Types and Counts</h2>
-        <div class="cards">
-         <%
-    Map<String, Integer> plantTypeCounts = (Map<String, Integer>) request.getAttribute("plantTypeCounts");
-    if (plantTypeCounts != null && !plantTypeCounts.isEmpty()) {
-        String[] plantTypes = {"arbre", "arbust", "floar", "plantseculent"};
-        String[] icons = {"fa-tree", "fa-seedling", "fa-seedling", "fa-leaf"}; 
-        String[] links = {"plants_arbre.jsp", "plants_arbust.jsp", "plants_floar.jsp", "plants_plantseculent.jsp"};
-        for (int i = 0; i < plantTypes.length; i++) {
-            String type = plantTypes[i];
-            int count = plantTypeCounts.getOrDefault(type, 0);
-%>
-            <a href="<%= links[i] %>">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><% if (!icons[i].isEmpty()) { %><i class="fas <%= icons[i] %>"></i> <% } %> <%= type %></h5>
-                        <p class="card-text"> <%= count %></p>
-                    </div>
+    <h2>Plant Types</h2>
+    <div class="cards">
+        <%
+            Map<String, Integer> plantTypeCounts = (Map<String, Integer>) request.getAttribute("plantTypeCounts");
+            if (plantTypeCounts != null && !plantTypeCounts.isEmpty()) {
+                String[] plantTypes = {"Arbre", "Arbuste", "Fleur", "Plante_succulente"};
+                String[] icons = {"fa-tree", "fa-seedling", "fa-seedling", "fa-leaf"};
+                String[] links = {"view/plants_arbre.jsp", "view/plants_arbust.jsp", "view/plants_floar.jsp", "view/plants_plantseculent.jsp"};
+                for (int i = 0; i < plantTypes.length; i++) {
+                    String type = plantTypes[i];
+                    int count = plantTypeCounts.getOrDefault(type, 0);
+        %>
+        <a href="<%= links[i] %>">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><% if (!icons[i].isEmpty()) { %><i class="fas <%= icons[i] %>"></i><% } %> <%= type %></h5>
+                    <p class="card-text"> <%= count %></p>
                 </div>
-            </a>
-<%
-        }
-    } else {
-%>
+            </div>
+        </a>
+        <%
+                }
+            } else {
+        %>
         <p>No plant information available.</p>
-<%
-    }
-%>
-         
-        </div>
+        <%
+            }
+        %>
+    </div>
 
         <!-- Statistics Section -->
         <div class="statistics">
@@ -168,10 +170,10 @@
             data: {
                 labels: ['Arbre', 'Arbust', 'Floar', 'Plantseculent'],
                 datasets: [{
-                    data: [<%= plantTypeCounts.getOrDefault("arbre", 0) %>, 
-                           <%= plantTypeCounts.getOrDefault("arbust", 0) %>, 
-                           <%= plantTypeCounts.getOrDefault("floar", 0) %>, 
-                           <%= plantTypeCounts.getOrDefault("plantseculent", 0) %>],
+                    data: [<%= plantTypeCounts.getOrDefault("Arbre", 0) %>, 
+                           <%= plantTypeCounts.getOrDefault("Arbuste", 0) %>, 
+                           <%= plantTypeCounts.getOrDefault("Fleur", 0) %>, 
+                           <%= plantTypeCounts.getOrDefault("Plante_succulente", 0) %>],
                     backgroundColor: [
                         'rgba(46, 204, 113, 0.7)',
                         'rgba(52, 152, 219, 0.7)',
@@ -205,10 +207,10 @@
                 labels: ['Arbre', 'Arbust', 'Floar', 'Plantseculent'],
                 datasets: [{
                     label: 'Plant Types Count',
-                    data: [<%= plantTypeCounts.getOrDefault("arbre", 0) %>, 
-                           <%= plantTypeCounts.getOrDefault("arbust", 0) %>, 
-                           <%= plantTypeCounts.getOrDefault("floar", 0) %>, 
-                           <%= plantTypeCounts.getOrDefault("plantseculent", 0) %>],
+                    data: [<%= plantTypeCounts.getOrDefault("Arbre", 0) %>, 
+                           <%= plantTypeCounts.getOrDefault("Arbuste", 0) %>, 
+                           <%= plantTypeCounts.getOrDefault("Fleur", 0) %>, 
+                           <%= plantTypeCounts.getOrDefault("Plante_succulente", 0) %>],
                     backgroundColor: [
                         'rgba(46, 204, 113, 0.7)',
                         'rgba(52, 152, 219, 0.7)',

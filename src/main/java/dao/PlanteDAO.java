@@ -143,8 +143,8 @@ public class PlanteDAO {
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(MODIFIER_plante_SQL);) {
 			statement.setString(1, plante.getNom());
-			statement.setString(3, plante.getDescription());
-			statement.setDouble(2, plante.getPrix());
+			statement.setString(2, plante.getDescription());
+			statement.setDouble(3, plante.getPrix());
 			statement.setString(4, plante.getType());
 			
 			byte[] imageBytes = Base64.getDecoder().decode(plante.getImage());

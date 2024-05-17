@@ -112,9 +112,9 @@
 <body>
    <div class="sidebar">
     <a href="dashboard.jsp"><i class="fas fa-home"></i> Dashboard</a>
-    <a href="plants"><i class="fas fa-seedling"></i> Plantes</a>
+    <a href="plant"><i class="fas fa-seedling"></i> Plantes</a>
     <a href="produit"><i class="fas fa-box"></i> Produits</a>
-    <a href="stock.jsp"><i class="fas fa-warehouse"></i> Stock</a>
+    <a href="plants"><i class="fas fa-warehouse"></i> Stock</a>
 </div>
    
     <div class="container">

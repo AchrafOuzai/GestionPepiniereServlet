@@ -59,7 +59,7 @@ public class AdminDAO {
 
     public int getTotalProducts() {
         int totalProducts = 0;
-        String query = "SELECT COUNT(*) FROM produit_chimique"; 
+        String query = "SELECT COUNT(*) FROM produit"; 
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query);

@@ -81,7 +81,7 @@
 <body>
 <div class="login-container">
     <div class="image-container">
-        <img src="plante.png" alt="Login Image" class="login-image">
+        <img src="view/plante.png" >
     </div>
     <h2>Login</h2>
     <%

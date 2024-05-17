@@ -13,52 +13,48 @@ import java.util.HashMap;
 import java.util.Map;
 import utils.DatabaseConnection;
 
-import com.google.gson.Gson;
-//Import statements
-
 @WebServlet("/plants")
 public class PlantServlet extends HttpServlet {
- private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
- protected void doGet(HttpServletRequest request, HttpServletResponse response)
-         throws ServletException, IOException {
-     fetchPlantTypeCounts(request, response);
- }
- 
- private void fetchPlantTypeCounts(HttpServletRequest request, HttpServletResponse response) 
-         throws ServletException, IOException {
-     Connection connection = null;
-     PreparedStatement preparedStatement = null;
-     ResultSet resultSet = null;
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        fetchPlantTypeCounts(request, response);
+    }
 
-     Map<String, Integer> plantTypeCounts = new HashMap<>();
+    private void fetchPlantTypeCounts(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-     String[] plantTypes = {"arbre", "arbust", "floar", "plantseculent"};
+        Map<String, Integer> plantTypeCounts = new HashMap<>();
 
-     try {
-         connection = DatabaseConnection.getConnection();
-         String countSql = "SELECT type, COUNT(*) AS count FROM plante WHERE type IN (?, ?, ?, ?) GROUP BY type";
-         preparedStatement = connection.prepareStatement(countSql);
-         for (int i = 0; i < plantTypes.length; i++) {
-             preparedStatement.setString(i + 1, plantTypes[i]);
-         }
-         resultSet = preparedStatement.executeQuery();
+        String[] plantTypes = {"Arbre", "Arbuste", "Fleur", "Plante_succulente"};
 
-         while (resultSet.next()) {
-             String type = resultSet.getString("type");
-             int count = resultSet.getInt("count");
-             plantTypeCounts.put(type, count);
-         }
-     } catch (Exception e) {
-         e.printStackTrace();
-     } finally {
-         DatabaseConnection.closeResultSet(resultSet);
-         DatabaseConnection.closeStatement(preparedStatement);
-         DatabaseConnection.closeConnection(connection);
-     }
+        try {
+            connection = DatabaseConnection.getConnection();
+            String countSql = "SELECT type_plante, COUNT(*) AS count FROM plante WHERE type_plante IN (?, ?, ?, ?) GROUP BY type_plante";
+            preparedStatement = connection.prepareStatement(countSql);
+            for (int i = 0; i < plantTypes.length; i++) {
+                preparedStatement.setString(i + 1, plantTypes[i]);
+            }
+            resultSet = preparedStatement.executeQuery();
 
-     request.setAttribute("plantTypeCounts", plantTypeCounts);
-     request.getRequestDispatcher("/plants.jsp").forward(request, response);
- }
+            while (resultSet.next()) {
+                String type = resultSet.getString("type_plante");
+                int count = resultSet.getInt("count");
+                plantTypeCounts.put(type, count);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeResultSet(resultSet);
+            DatabaseConnection.closeStatement(preparedStatement);
+            DatabaseConnection.closeConnection(connection);
+        }
+
+        request.setAttribute("plantTypeCounts", plantTypeCounts);
+        request.getRequestDispatcher("/view/plants.jsp").forward(request, response);
+    }
 }
-
